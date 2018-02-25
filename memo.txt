@@ -85,7 +85,7 @@ Traceback (most recent call last):
 pygame.error: Couldn't open Temmie.png
 >>> imagel = pygame.image.load("Temmie.png").convert() # Pythonインストール時展開指定パスに画像コピー
 >>> image1 = pygame.image.load("Temmie.png").convert() # l じゃなくて 1
-
+サイズ:32 × 32
 
 
 一応はじめから、、、
