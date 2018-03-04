@@ -438,4 +438,158 @@ window 6
 defenestrate 12
 ```
 反復中のシーケンスを改変する必要があるときは、コピーを取って反復をかけることを推奨  
-シーケンスに反復をかけることで暗黙にコピーが取られたりはしない
+シーケンスに反復をかけることで暗黙にコピーが取られたりはしない  
+```python
+>>> for w in words[:]: # リスト全体のスライスコピーにループをかける
+...     if len(w) > 6:
+...             words.insert(0,w)
+...
+>>> words
+['defenestrate', 'cat', 'window', 'defenestrate']
+```
+スライスコピー・・・範囲指定後部分リスト取得
+
+
+
+#### 3.range()関数  
+数字の連なりに反復をかけるときは、ビルドイン関数のrange()が便利  
+ビルドイン関数・・・基本的、汎用的な演算処理を行うためにあらかじめ用意されている関数のこと
+```python
+>>> for i in range(5):
+...     print(i)
+...
+0
+1
+2
+3
+4
+```
+
+与えられた終端値は入らない、  
+range(XX)が生成するXX個の値は、長さXXのシーケンスの各アイテムへのインデックスとなる  
+rangeは0以外の数字から始めることも、増分の指定(負数)も可  
+```python
+>>> for i in range(5,9): #5～9まで
+...     print(i)
+...
+5
+6
+7
+8
+>>> for i in range( 0,10, 3): #0～10まで、増分3
+...     print(i)
+...
+0
+3
+6
+9
+>>> for i in range(-10,-100, -30): #-10～-100まで、増分-30
+...     print(i)
+...
+-10
+-40
+```
+シーケンスのインデックスで反復をかけたいときは、
+range()、len()を組み合わせる
+```python
+>>> a = ['Mary','had','a','little','lamb']
+>>> for i in range(len(a)):
+...     print(i,a[i])
+...
+0 Mary
+1 had
+2 a
+3 little
+4 lamb
+```
+
+
+多くの場合enumerate()関数を使用している(6 ループのテクニック参照)  
+rangeを単純にprintしてやると、
+```python
+>>> print(range(10))
+range(0, 10)
+```
+range()関数が返すオブジェクトはリストのように振舞っているが、  
+** 実はlistではない **  
+反復を掛けることで望みのシーケンスのアイテムを連続的に返すオブジェクトであり、  
+本当にはリストを作らず、それにより空間を節約する  
+このようなオブジェクトを ** 反復可能体(iterable) ** と呼ぶ  
+これは空になるまで連続的にアイテムを供給するもの、そうしたものを期待する関数や構造のターゲットとして適したもの  
+反復可能体を期待する関数や構造を ** 反復子(iterator) ** という  
+for文は反復子の例である  
+反復可能体からリストを生成するlist()関数も反復子  
+```python
+>>> list(range(5))
+[0, 1, 2, 3, 4]
+```
+反復可能体を返す関数や、引数として取る関数は他にも存在するので後記で触れる  
+
+
+#### 4.break文とcontinue文、ループにおけるelse節
+break文はC同様、forまたはwhileのループを抜けるもの  
+ループ文にはelse節を加えられる  
+else節は、リストを使い果たしたり(for)、条件式がfalseになること(while)によってループが終了した場合に実行され、  
+break文で終了した場合には実行されない  
+以下素数探索ループによる例
+```python
+>>> for n in range(2,10):
+...     for x in range(2,n):
+...             if n % x == 0:
+...                     print(n,'equals',x,'*',n//x)
+...                     break
+...     else:
+...             # ループで約数が見つけられなかった場合
+...             print(n,'is a prime number')
+...paa
+2 is a prime number
+3 is a prime number
+4 equals 2 * 2
+5 is a prime number
+6 equals 2 * 3
+7 is a prime number
+8 equals 2 * 4
+9 equals 3 * 3
+```
+この例で注目すべきは * else節の所属がif文ではなくforループとなっている所 *  
+ループでのelse節は、try文に似たものになる  
+try文のelse節は例外が起きなかったときに、  
+ループのelse節はbreakが起きなかったときに実行される  
+try文や例外の詳細は後記の「例外の処理」参照  
+continue文もC同様でループの残りを飛ばして次の反復に移る  
+```python
+>>> for num in range(2,10):
+...     if num % 2 == 0:
+...             print("Found an even number",num)
+...             continue
+...     print("Found a number", num)
+...
+Found an even number 2
+Found a number 3
+Found an even number 4
+Found a number 5
+Found an even number 6
+Found a number 7
+Found an even number 8
+Found a number 9
+```
+
+
+
+#### 5.pass文  
+pass文は何もしない  
+構文的に文が必要なのに、プログラム的には何もする必要がないときに使う  
+```python
+>>> while True:
+...     pass #キーボード割込(Ctrl+C)を待つ
+...
+KeyboardInterrupt
+```
+passの使いどころとしては、新しくコードを書いているとき関数や条件の本体に一時的に保存しておき(プレースホルダ)、  
+実装を後回しにするときに使う  
+```python
+>>> def initlog(*args):
+...     pass # 実装を忘れずに！
+...
+```
+

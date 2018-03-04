@@ -498,13 +498,13 @@ while endflag == 0:
 					* (blockw / 2 + br)
 				else:
 					by1 = -by1
-					bally = block.centerx - sgn(dy) \
+					bally = block.centery - sgn(dy) \
 					* (blockh / 2 + br)
 			blocks.remove(block)
 			break
 		ballx += bx1
 		bally += by1
-		screen.fill(BLUE)
+		screen.fill(blue)
 		for block in blocks:
 			color = colortable[int(block.y / 28) % 3]
 			pygame.draw.rect(screen, color, block)
@@ -513,7 +513,7 @@ while endflag == 0:
 		(int(ballx), int(bally)), br)
 		if gameover > 0:
 			imagetext = \
-			myfont.render("GAME OVER", True,WHITE)
+			myfont.render("GAME OVER", True,white)
 			screen.blit(imagetext, (180, 300))
 			if gameover > 200: break
 		myclock.tick(60)
