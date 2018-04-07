@@ -654,4 +654,49 @@ None
 	obj:なんらかのオブジェクト(式でも可)  
 	methodname:オブジェクトの型により定義されたメソッド名  
 	型が異なると、定義されるメソッドが異なる  
-	異なる型のメソッド同士が同じ名前を持っていても混同されることはない
+	異なる型のメソッド同士が同じ名前を持っていても混同されることはない  
+	例に示したメソッドappend()はリストオブジェクトに定義されているもの  
+	リストの末尾に新しい要素を付け加える  
+	append()は例のresult = result + [a]と等価  
+[](
+関数定義  
+引数の個数が可変の関数を定義することもできる  
+3つの形態があり、組み合わせも可  
+
+一番使いでがある形態は、いくつかの引数にデフォルト値を設定する事  
+渡すように定義してあるよりも少ない個数の引数でコールできる  
+
+```python
+def ask_ok(prompt, retries=4, complaint='Yes or no, please!'):
+    while True:
+        ok = input(prompt)
+        if ok in ('y','ye','yes'):
+            return True
+        if ok in ('n','no','nop','nope'):
+            return False
+        retrise = retries - 1
+        if retries < 0:
+            raise OSError('非協力的ユーザー')
+        print(complaint)
+```
+
+以下に関数のコールを記載
+```python
+ask_ok('Do you really want to quit?')
+Do you really want to quit?
+
+ask_ok('OK to overwrite the file?',2)
+OK to overwrite the file?
+
+ask_ok('OK to overwrite the file?',2,'Come on, only yes or no!')
+OK to overwrite the file?
+
+
+この例ではキーワードinの紹介もしている  
+シーケンスが指定の値を含むかどうか判定 
+デフォルト値の評価は、関数を定義した時点で、定義を書いたスコープで行われるため
+```
+
+
+
+)

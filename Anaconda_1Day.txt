@@ -1,0 +1,296 @@
+Anacondaインストール Ver 5.1
+Python 3.6 version 選択
+https://www.anaconda.com/download/
+
+インストール
+https://weblabo.oscasierra.net/python-anaconda-install-windows/
+
+
+スタート > Anaconda3 > Anaconda Prompt(コマンドプロンプト的な) 起動
+
+>python
+>>>print("Hello Python!")
+Hello Python!
+
+スタート > Anaconda3 > Jupyter Notebook
+Jupyter Notebook ブラウザで動作するサーバータイプのツール
+
+http://localhost:8888/tree ?
+
+右上 > New > Python 3
+セルに「print("Hello Python!")」入力し実行（Shift + Enter)
+Jupyter Notebook にはデータの保存や読み込み、エクスポート機能あり
+
+
+実行はJupyter Notebookで行う
+
+ライブラリ:NumPy
+数値計算を効率的に行うためのモジュール
+In[] import numpy
+失敗したら... pip install numpy 実行
+
+NumPyで配列操作
+arry関数使用
+例)要素が３，５，８の配列
+In [] arr = numpy.array([3,5,8])
+      arr
+Out[] array([3,5,8])
+
+2次元配列
+In [] arr = numpy.array([[3,5,8],[1,4,9]])
+      arr
+Out[] array([[3, 5, 8],
+       [1, 4, 9]])
+
+NumPy配列はnumpy.ndarrayクラスのオブジェクト
+高速に動作する、便利な関数や属性？
+例)要素数が知りたい
+shape属性参照
+In [] arr = arr.shape
+Out[] (2,3)
+
+ランダムな値で要素を初期化
+In [] arr = numpy.random.rand(2,3)
+      arr
+Out[] array([[0.47260745, 0.94414472, 0.10434204],
+       [0.71182421, 0.08046091, 0.44775631]])
+
+
+ベクトルと行列の演算
+例)以下のような配列を用意し5を掛けるとそれぞれの要素が5倍になる。
+In [] arr = numpy.array([1,2,3])
+      arr = arr * 5
+      arr
+Out[] array([ 5, 10, 15])
+
+同じ形の配列同士の計算は、同じ場所の要素同士が計算されて返る
+In [] arr1 = numpy.array([[1,2,3],[2,3,4]])
+      arr2 = numpy.array([[3,4,5],[4,5,6]])
+      arr = arr1 + arr2
+      arr
+Out[] array([[ 4, 6,  8],
+             [ 6, 8, 10]])
+
+転置
+In [] arr1 = numpy.array([[1,2,3],[2,3,4]])
+      arr2 = arr1.T
+      arr2
+Out[] array([[1, 2],
+             [2, 3],
+             [3, 4]])
+
+
+～ここからIn Out 省略表記～
+
+dot関数
+書式:numpy.dot(a, b, out = None)
+a.....左から掛けるベクトルまたは行列
+b.....右から掛けるベクトルまたは行列
+out...結果を格納する代替配列
+返り値.ベクトルの内積結果や行列の積
+ベクトルの内積 = 各要素の積をすべて足し合わせた値
+例)
+I
+arr1 = numpy.array([1,2,3])
+arr2 = numpy.array([2,3,4])
+numpy.dot(arr1,arr2)
+
+O
+20
+
+
+行列の積では、横の並び、縦の並びの組の同じ順番の数同士を掛けたものを足す
+http://www.geisya.or.jp/~mwm48961/kou2/matrix2.html
+
+例)
+I
+arr1 = numpy.array([[1,2],[3,4]])
+arr2 = numpy.array([[5,6],[7,8]])
+numpy.dot(arr1,arr2)
+
+O
+array([[19, 22],
+       [43, 50]])
+
+
+NumPyの統計関数
+配列の要素の平均は、mean関数を使用
+書式:numpy.mean(a,axis = None, dtype = None, out = None, keepdims = False)
+a...平均を求めたい配列
+axis...どの軸(axis)に沿って平均を求めるか
+dtype...計算結果を格納するための配列
+out...結果を格納するための配列
+keepdims...返す配列の軸(axis)の数をそのままにする
+返り値.指定した配列の要素の平均、もしくは平均を要素とする配列
+
+0～9までのランダムな整数の配列を生成、平均を求める
+ランダムな値の配列 → random.randit関数
+
+例)
+I
+r = numpy.random.randint(0, 10, 10)
+r
+
+O
+array([6, 2, 4, 5, 7, 9, 8, 6, 4, 3])
+
+この平均
+I
+m = numpy.mean(r)
+m
+
+O
+5.4
+
+標準偏差はstd関数で求めることができる
+書式:numpy.std(a, axis=None, dtype=None,out=None,ddof=0,keepdims=<class numpy._globals._NoValue>
+a...標準偏差を計算したい配列
+axis...どの軸(axis)に沿って平均を求めるか
+dtype...計算結果を格納するための配列
+out...結果を格納する配列
+ddof...データ個数Nではなく"N - ddof"で割る
+keepdims...Trueにすると出力される配列の次元数が保存される
+返り値.指定された範囲での標準偏差を要求する配列、または値
+
+先ほどの標準偏差確認
+
+I
+s = numpy.std(r)
+s
+
+O
+2.1071307505705477
+
+
+集計関数にsum関数がある
+axis(軸)を表す引数があり、2次元配列に関してどの向きに集計を取るか指定できる
+例)
+I
+arr = numpy.array([[1,2,3],
+                   [2,3,4]])
+numpy.sum(arr, axis=0
+
+O
+array([3, 5, 7])
+
+I
+arr = numpy.array([[1,2,3],
+                   [2,3,4]])
+numpy.sum(arr, axis=1)
+
+O
+array([6, 9])
+
+
+2点の距離(ベクトルの長さ)、「ユークリッド距離」を求める場合はlinalg.norm関数を使う。
+座標(x,y)としてa地点(2,5)からb地点(7,8)へのユークリッド距離を求める
+例)
+I
+a = numpy.array([2,5])
+b = numpy.array([7,8])
+numpy.linalg.norm(b - a)
+
+O
+5.830951894845301
+
+
+Pandas データの分析、解析
+機械学習ではデータをPandasの「DateFrame」に変換して、操作表示する
+DateFrameはRDB（関係データベース）のデーブルやCSV、Excelのような形式のデータ構造　いわゆる「表」のイメージ
+
+NumPy、Pandasインポート（as：別名付与）
+import numpy as py
+import pandas as pd
+
+DateFrameオブジェクト作成
+df = pd.DataFrame([["Nakajima","Smith","Chen"],
+                   ["Japan","USA","China"],
+                   [51,25,39],
+                   ["11/20","3/5","8/29"]]).T
+
+表列名columns関数
+df.columns = ["Name","Country","Age","Birthday"]
+
+行名セット
+df.index = [1,2,3]
+
+表示
+print(df)
+
+DataFrameをCSVファイルにする
+to_csv関数
+書式：DataFrame.to_csv(path_or_buf=Nore, sep=' , ', na_rep=",float_format=None,columns=None, header=True,
+index=True,index_label=None, mode='w', encoding=None, compression=None, quoting-None, 
+qutupleize_cols=False,date_format=None, doublequote=True,escapechar=None,decimal='.')
+path_or_buf...出力するファイル名（省略した場合は文字列として出力）
+sep...区切り文字
+float_format...浮動小数点数の書式文字列
+columns...出力する列名
+heager...列名を保存するか否か
+index...行名を保存するか否か
+encoding...出力文字コード（'utf-8','shift_jis','euc_jp','ascii'など)
+compression...ファイルの圧縮（'gzip','bz2','xz'）
+line_terminator...改行文字
+quotechar...引用文字
+escapechar...エスケープ文字
+date_format...日時の書式文字列
+decimal...小数点の記号
+
+temp.csvという名前のファイルで保存
+df.to_csv("temp.csv")
+
+csv読み込み
+dtf = pd.read_csv('temp.csv')
+エラーが出なければおｋ
+print(dtf)
+表示結果
+       Name Country  Age Birthday
+0  Nakajima   Japan   51    11/20
+1     Smith     USA   25      3/5
+2      Chen   China   39     8/29
+read_csv関数
+
+
+matplotlib　データを図にプロットできるようになる
+インポート
+import matplotlib.pyplot as plt
+
+グラフをJupyter Notebookのセルの下に直接表示するためインラインの指定をする
+%matplotlib inline
+
+グラフ表示
+matplotlib.pyplotモジュールのplot関数、show関数を使用する
+使い方はplot関数の引数でx軸、y軸を指定して、show関数で表示する手順
+x軸、y軸は配列やリストで渡す。
+サイン波表示
+サイン波のX座標はNumPyのlinspace関数で、Y座標はsin関数で計算する
+それぞれの書式は下記①、②のようになる。
+mathモジュールのpiで円周率を取得し、X座標、Y座標を計算した結果をmatplotlibのplot関数に渡してグラフを生成しshow関数で表示
+①linspace関数書式
+numpy.linspace(start, stop, num = 50, endpoint = True, retstep = False, dtype = None)
+start...数列の始点
+stop...数列の終点
+num...生成するndarrayの要素数（デフォルトは50）
+endpoint...生成するndarryのデータ型を指定（無い場合float）
+返り値...num等分された等差数列を要素とするndarrayオブジェクト
+
+②sin関数の書式
+numpy.sin(x[, out]) = <ufunc 'sin'>
+x...ラジアン
+返り値...三角関数サインの値
+
+タイトル、軸ラベルの設定
+title関数でグラフのタイトル、xlabel関数、ylabel関数でグラフの軸ラベルを設定できる
+グラフの凡例はplot関数の引数labelで凡例名を指定し、legend関数で表示する
+※日本語表示するにはmatplotlibの設定ファイルを書き換える必要があるここではグラフ入力ができればよいので設定ファイル書き換えは行わない
+
+plt.title('Sin Graph')
+
+plt.xlabel('X-Axis')
+plt.ylabel('Y-Axis')
+
+plt.plot(x, y, label = 'sin')
+
+plt.legend()
+
+plt.show()
