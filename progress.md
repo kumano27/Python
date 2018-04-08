@@ -691,12 +691,57 @@ OK to overwrite the file?
 ask_ok('OK to overwrite the file?',2,'Come on, only yes or no!')
 OK to overwrite the file?
 
-
+```
 この例ではキーワードinの紹介もしている  
 シーケンスが指定の値を含むかどうか判定 
 デフォルト値の評価は、関数を定義した時点で、定義を書いたスコープで行われるため
+
+```python
+i = 5
+def f(arg=i):
+    print(arg)
+i = 6
+f()
+
+5
 ```
 
+デフォルト値の評価は一度しか起きない  
+デフォルト値が可変オブジェクト、リスト、ディクショナリ、クラスのインスタンスである場合、影響がある  
 
+```python
+def f(a, L=[]):
+    L.append(a)
+    return L
+print(f(1))
+print(f(2))
+print(f(3))
+
+[1]
+[1, 2]
+[1, 2, 3]
+
+```
+
+コール間でデフォルト値を共有されたくなければ以下のように記述する  
+```python
+def f(a, L=None):
+    if L is None:
+        L = []
+    L.append(a)
+    return L
+print(f(1))
+print(f(2))
+print(f(3))
+
+[1]
+[2]
+[3]
+```
 
 )
+
+
+#### 7.2 キーワード引数  
+
+
