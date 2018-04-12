@@ -1,0 +1,148 @@
+Anacondaでのファイル操作
+開きたいファイルはC:直下？
+ファイルは開けない？
+
+
+ファイルを扱う際はwith文が良い？
+　→　ファイルのクローズが自動
+　
+　
+import os OS依存の機能を操作する方法を提供
+os.getcwd() # 現在のディレクトリを取得
+　→　その配下に開きたいファイルを置けばよい
+　
+
+
+import time
+now = time.localtime() # 現在時刻をローカルタイムで取得　←　ローカル設定いつの間に...
+time.strftime('%Y-%m-%d %H:%M:%S', now) # フォーマットして返す
+
+'2018-04-12 10:37:50'
+
+import datetime
+now = datetime.datetime.now() #現在日付取得
+now.isoformat() # ISOフォーマットで返す
+
+'2018-04-12T10:40:37.482034'
+
+nextyear = datetime.datetime(2016,1,1) #2016年1月1日生成（過去）
+delta = nextyear - now
+delta.days
+
+-833
+　→　2016年1月1日から833日も経っている
+　
+
+randomパッケージ
+import random
+random.randint(1,1000) # 指定範囲のランダム
+
+446
+
+data = ['spam','ham','eggs','foo','bar','baz']
+random.choice(data) # ランダムに要素を取り出す
+
+'ham'
+
+random.shuffle(data) # 要素の順番をシャッフル
+data
+
+['spam', 'eggs', 'foo', 'bar', 'baz', 'ham']
+
+
+効率的なループ実行　https://docs.python.jp/3/library/itertools.html
+import itertools
+for x in itertools.chain('ABC','DEF'): # 全体を繋げて一つのシーケンスに
+    print(x ,end = ""),
+    
+ABCDEF
+
+for x in itertools.combinations('ABCD',2): # 長さが2の組み合わせを返す
+    print(x,end = ""),
+
+
+
+('A', 'B')('A', 'C')('A', 'D')('B', 'C')('B', 'D')('C', 'D')
+
+---動作確認しておらず---
+import shutil
+shutil.copytree('src_dir','dst_dir') # src_dir以下のファイルをdst_dirにコピーする
+shutil.rmtree('src_dir') # src_dir以下のファイルをすべて削除する
+---ここまで---
+
+
+jupyter(iPython)便利コマンド　Magic Functions
+%pwd　カレントディレクトリ表示
+%env　環境変数一覧表示
+%quickref　Magic Functionsのコマンド一覧表示
+
+オブジェクトの確認
+date = [1,2,3]
+date?
+
+Type:        list
+String form: [1, 2, 3]
+Length:      3
+Docstring:  
+list() -> new empty list
+list(iterable) -> new list initialized from iterable's items
+
+docstringの参照
+import math
+math?
+
+Type:        module
+String form: <module 'math' (built-in)>
+Docstring:  
+This module is always available.  It provides access to the
+mathematical functions defined by the C standard.
+
+
+C:\Users\***>python -m unittest discover
+F
+======================================================================
+FAIL: test_if (tests.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\***\tests.py", line 7, in test_if
+    self.assertEqual(3,value)
+AssertionError: 3 != 0
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=1)
+
+
+ユニットテスト　公式ドキュメント
+https://docs.python.jp/3/library/unittest.html
+
+
+コードカバレージ測定　※要coverageインストール
+
+C:\Users\***>coverage run -m unittest discover
+F
+======================================================================
+FAIL: test_if (tests.Test)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "C:\Users\***\tests.py", line 7, in test_if
+    self.assertEqual(3,value)
+AssertionError: 3 != 0
+
+----------------------------------------------------------------------
+Ran 1 test in 0.005s
+
+FAILED (failures=1)
+
+C:\Users\***>coverage report
+Name        Stmts   Miss  Cover
+-------------------------------
+sample.py       2      0   100%
+tests.py        6      0   100%
+-------------------------------
+TOTAL           8      0   100%
+
+静的コード解析　※　要flake8インストール
+C:\Users\***>flake8 invalid_sample.py
+invalid_sample.py:2:5: F841 local variable 'unused_variable' is assigned to but never used
