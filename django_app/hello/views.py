@@ -17,8 +17,8 @@ class HelloView(TemplateView):
     def __init__(self):
         self.params = {
                     'title':'Hello',
-                    'message':'your data:',
-                    'form':HelloForm()
+                    'form':HelloForm(),
+                    'result':None
                 }
     
     """
@@ -38,11 +38,12 @@ class HelloView(TemplateView):
     # self.params['form'] に設定
     """
     def post(self, request):
-        msg = 'あなたは、<b>' + request.POST['name'] + \
-            '(' + request.POST['age'] + \
-            ')</b>さんです。<br>メールアドレスは<b>' + request.POST['mail'] + \
-            '</b>ですね。'
-        self.params['message'] = msg
+        if('check' in request.POST):
+            # チェックがONの時
+            self.params['result'] = 'Checked!!'
+        else:
+            # チェックがOFFの時
+            self.params['result'] = 'not checked...'
         self.params['form'] = HelloForm(request.POST)
         return render(request, 'hello/index.html', self.params)
     
