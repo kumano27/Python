@@ -38,12 +38,8 @@ class HelloView(TemplateView):
     # self.params['form'] に設定
     """
     def post(self, request):
-        if('check' in request.POST):
-            # チェックがONの時
-            self.params['result'] = 'Checked!!'
-        else:
-            # チェックがOFFの時
-            self.params['result'] = 'not checked...'
+        chk = request.POST['check']
+        self.params['result'] = 'your selected: "' + chk + '".'
         self.params['form'] = HelloForm(request.POST)
         return render(request, 'hello/index.html', self.params)
     
