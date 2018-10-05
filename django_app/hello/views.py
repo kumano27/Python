@@ -38,8 +38,8 @@ class HelloView(TemplateView):
     # self.params['form'] に設定
     """
     def post(self, request):
-        ch = request.POST['choice']
-        self.params['result'] = 'selected: "' + ch + '".'
+        ch = request.POST.getlist('choice')
+        self.params['result'] = 'selected: "' + str(ch) + '".'
         self.params['form'] = HelloForm(request.POST)
         return render(request, 'hello/index.html', self.params)
     
