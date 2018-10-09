@@ -6,7 +6,7 @@ from .models import Friend
 
 def index(request):
     # メソッドチェーン
-    data = Friend.objects.all().values()
+    data = Friend.objects.all().values('id','name')
     params = {
                 'title': 'Hello',
                 'data': data,
