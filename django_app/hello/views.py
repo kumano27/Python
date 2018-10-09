@@ -5,8 +5,13 @@ from django.http import HttpResponse
 from .models import Friend
 
 def index(request):
-    # メソッドチェーン
-    data = Friend.objects.all().values_list('id','name','age')
+    # レコード数
+    num = Friend.objects.all().count()
+    # 最初のレコードを返す
+    first = Friend.objects.all().first()
+    # 最後のレコードを返す
+    last = Friend.objects.all().last()
+    data = [num, first, last]
     params = {
                 'title': 'Hello',
                 'data': data,
