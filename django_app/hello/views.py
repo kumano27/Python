@@ -2,24 +2,36 @@
 # Create your views here.
 from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import redirect
 from .models import Friend
-from django.db.models import QuerySet
-
-def __new_str__(self):
-    result = ''
-    for item in self:
-        result += '<tr>'
-        for k in item:
-            result += '<td>' + str(k) + '=' + str(item[k]) + '</td>'
-        result += '</tr>'
-    return result
-        
-QuerySet.__str__ = __new_str__
+from .forms import HelloForm
 
 def index(request):
-    data = Friend.objects.all().values('id','name','age')
+    data = Friend.objects.all()
     params = {
                 'title': 'Hello',
                 'data': data,
             }
     return render(request, 'hello/index.html' , params)
+
+# create model
+def create(request):
+    params = {
+                'title': 'Hello',
+                'form': HelloForm(),
+            }
+    # POST送信されたか確認
+    if (request.method == 'POST'):
+        name = request.POST['name']
+        mail = request.POST['mail']
+        gender = 'gender' in request.POST
+        age = int(request.POST['age'])
+        birth = request.POST['birthday']
+        
+        # 上記の値を元に、Friendインスタンス作成
+        friend = Friend(name=name,mail=mail,gender=gender,age=age,birthday=birth)
+        # インスタンスを保存
+        friend.save()
+        # /hello にリダイレクト
+        return redirect(to='/hello')
+    return render(request, 'hello/create.html',params)
