@@ -29,3 +29,18 @@ def create(request):
                 'form': FriendForm(),
             }
     return render(request, 'hello/create.html',params)
+
+def edit(request, num):
+    # インスタンスの取得 -> 引数id
+    obj = Friend.objects.get(id=num)
+    if(request.method == 'POST'):
+        # instance 引数に get で取得したインスタンスを指定
+        friend = FriendForm(request.POST, instance=obj)
+        friend.save()
+        return redirect(to='/hello')
+    params = {
+                'title': 'Hello',
+                'id':num,
+                'form': FriendForm(instance=obj),
+            }
+    return render(request, 'hello/edit.html', params)
