@@ -4,7 +4,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
 from .models import Friend
-from .forms import HelloForm
+from .forms import FriendForm
 
 def index(request):
     data = Friend.objects.all()
@@ -16,22 +16,16 @@ def index(request):
 
 # create model
 def create(request):
-    params = {
-                'title': 'Hello',
-                'form': HelloForm(),
-            }
     # POST送信されたか確認
     if (request.method == 'POST'):
-        name = request.POST['name']
-        mail = request.POST['mail']
-        gender = 'gender' in request.POST
-        age = int(request.POST['age'])
-        birth = request.POST['birthday']
-        
-        # 上記の値を元に、Friendインスタンス作成
-        friend = Friend(name=name,mail=mail,gender=gender,age=age,birthday=birth)
-        # インスタンスを保存
+        # Friend クラスのインスタンス作成(初期状態のインスタンス)
+        obj = Friend()
+        # FriendForm インスタンス作成
+        friend = FriendForm(request.POST, instance=obj)
         friend.save()
-        # /hello にリダイレクト
         return redirect(to='/hello')
+    params = {
+                'title': 'Helo',
+                'form': FriendForm(),
+            }
     return render(request, 'hello/create.html',params)
