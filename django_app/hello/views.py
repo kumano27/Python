@@ -79,22 +79,27 @@ def delete(request, num):
 
 def find(request):
     if(request.method == 'POST'):
-        msg = 'search result:'
+        # POST送信されている事を確認し、変数sqlにアクセスするSQLクエリ文を用意
+        msg = request.POST['find']
         form = FindForm(request.POST)
-        # テキストを分割してリストへ
-        str = request.POST['find']
-        list = str.split()
-        # 送られた値を元にallで得た中から指定範囲のレコードだけを取り出す
-        data = Friend.objects.all()[int(list[0]):int(list[1])]
+        sql = 'select * from hello_friend'
+        
+        # フォームから何かテキストが送信されてきた場合
+        if(msg != ''):
+            sql += ' where ' + msg
+        
+        data = Friend.objects.raw(sql)
+        msg = sql
     else:
         msg = 'search words...'
         form = FindForm()
         data = Friend.objects.all()
     params = {
-                'title':'Hello',
-                'message':msg,
-                'form':form,
-                'data':data,
+            'title': 'Hello',
+            'message': msg,
+            'form': form,
+            'data':data,
             }
+
     return render(request, 'hello/find.html', params)
         
