@@ -6,6 +6,7 @@ from django.shortcuts import redirect
 from .models import Friend
 from .forms import FriendForm
 from .forms import FindForm
+from django .db.models import Q # Q関数 OR条件に必要
 
 def index(request):
     data = Friend.objects.all()
@@ -63,10 +64,8 @@ def find(request):
         msg = 'search result:'
         form = FindForm(request.POST)
         str = request.POST['find']
-        # split -> テキストを決まった文字や記号で分割したリストを返す。引数を省略すると、半角スペースや改行でテキストを分割する
-        val = str.split()
-        # A 以上 B 以下
-        data = Friend.objects.filter(age__gte=val[0]).filter(age__lte=val[1])
+        # name と mail から検索する
+        data = Friend.objects.filter(Q(name__contains=str)|Q(mail__contains=str))
     else:
         msg = 'search words...'
         form = FindForm()
