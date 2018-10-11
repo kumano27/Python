@@ -2,6 +2,7 @@
 
 from django import forms
 from.models import Friend
+from django import forms
 
 class HelloForm(forms.Form):
     name = forms.CharField(label='Name')
@@ -24,9 +25,11 @@ class FindForm(forms.Form):
     find = forms.CharField(label='Find', required=False)
     
 class CheckForm(forms.Form):
-    # 日付を表す整数(1～31 の間の数)が入力可能
-    date = forms.DateField(label='Date', input_formats=['%d'])
-    # hh:mm形式でなければエラー
-    time = forms.TimeField(label='Time')
-    #　mm/dd/yyyy_hh:mm 形式でなければエラー
-    datetime = forms.DateTimeField(label='DateTime')
+    str = forms.CharField(label='String')
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        str = cleaned_data['str']
+        if(str.lower().startswith('no')):
+            # no で始まるテキストを入力すると下記メッセージ表示
+            raise forms.ValidationError('You input "NO"!')
