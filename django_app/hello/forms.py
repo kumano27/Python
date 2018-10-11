@@ -24,12 +24,11 @@ class FindForm(forms.Form):
     find = forms.CharField(label='Find', required=False)
     
 class CheckForm(forms.Form):
-    # 空の入力を許可するか指定
-    empty = forms.CharField(label='Empty', empty_value=True)
-    
-    # 入力するテキストの最小文字数を指定
-    # 以下の例だと10文字以上を入力する必要がある
-    min = forms.CharField(label='Min', min_length=10)
-    # 入力するテキストの最大文字数を指定
-    # 以下の例だと10文字以下の入力のみ受け付ける
-    max = forms.CharField(label='Max', max_length=10)
+    # 必須項目とするか否か
+    required = forms.IntegerField(label='Required')
+    # 入力する数値の最小値を指定
+    # 以下の例だと100以上を入力する必要がある
+    min = forms.IntegerField(label='Min', min_value=100)
+    # 入力する数値の最大値を指定
+    # 以下の例だと100以下の入力のみ受け付ける
+    max = forms.IntegerField(label='Max', max_value=100)
