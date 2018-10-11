@@ -63,7 +63,12 @@ def find(request):
         msg = 'search result:'
         form = FindForm(request.POST)
         str = request.POST['find']
-        data = Friend.objects.filter(name=str)
+        # 値を含む検索
+        data = Friend.objects.filter(name__contains=str)
+        # 値で始まるものを検索
+        # data = Friend.objects.filter(name__startswith=str)
+        # 値で終わるものを検索
+        # data = Friend.objects.filter(name__endswith=str)
     else:
         msg = 'search words...'
         form = FindForm()
