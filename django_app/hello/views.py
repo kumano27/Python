@@ -64,9 +64,11 @@ def find(request):
     if(request.method == 'POST'):
         msg = 'search result:'
         form = FindForm(request.POST)
+        # テキストを分割してリストへ
         str = request.POST['find']
         list = str.split()
-        data = Friend.objects.filter(name__in=list)
+        # 送られた値を元にallで得た中から指定範囲のレコードだけを取り出す
+        data = Friend.objects.all()[int(list[0]):int(list[1])]
     else:
         msg = 'search words...'
         form = FindForm()
