@@ -6,13 +6,30 @@ from django.shortcuts import redirect
 from .models import Friend
 from .forms import FriendForm
 from .forms import FindForm
-from django .db.models import Q # Q関数 OR条件に必要
+from django.db.models import Q # Q関数 OR条件に必要
+from django.db.models import Count,Sum,Avg,Min,Max # 集計用の関数
 
 def index(request):
-    # reverse -> 降順
-    data = Friend.objects.all().order_by('age').reverse()
+    data = Friend.objects.all()
+    # 指定項目のレコード数を返す
+    re1 = Friend.objects.aggregate(Count('age'))
+    # 指定項目の合計を計算
+    re2 = Friend.objects.aggregate(Sum('age'))
+    # 指定項目の平均を計算
+    re3 = Friend.objects.aggregate(Avg('age'))
+    # 指定項目の最小値を返す
+    re4 = Friend.objects.aggregate(Min('age'))
+    # 指定項目の最大値を返す
+    re5 = Friend.objects.aggregate(Max('age'))
+
+    msg = 'count:' + str(re1['age__count'])\
+            + '<br>Sum:' + str(re2['age__sum'])\
+            + '<br>Average:' + str(re3['age__avg'])\
+            + '<br>Min:' + str(re4['age__min'])\
+            + '<br>Max:' + str(re5['age__max'])
     params = {
                 'title': 'Hello',
+                'message':msg,
                 'data': data,
             }
     return render(request, 'hello/index.html' , params)
