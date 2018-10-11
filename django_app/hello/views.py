@@ -63,8 +63,10 @@ def find(request):
         msg = 'search result:'
         form = FindForm(request.POST)
         str = request.POST['find']
-        # 入力フィールドの年齢以下のレコード取得
-        data = Friend.objects.filter(age__lte=int(str))
+        # split -> テキストを決まった文字や記号で分割したリストを返す。引数を省略すると、半角スペースや改行でテキストを分割する
+        val = str.split()
+        # A 以上 B 以下
+        data = Friend.objects.filter(age__gte=val[0], age__lte=val[1])
     else:
         msg = 'search words...'
         form = FindForm()
