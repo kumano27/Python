@@ -63,12 +63,15 @@ def find(request):
         msg = 'search result:'
         form = FindForm(request.POST)
         str = request.POST['find']
-        # 値を含む検索
-        data = Friend.objects.filter(name__contains=str)
-        # 値で始まるものを検索
-        # data = Friend.objects.filter(name__startswith=str)
-        # 値で終わるものを検索
-        # data = Friend.objects.filter(name__endswith=str)
+        # 大文字小文字を区別しない
+        data = Friend.objects.filter(name__iexact=str)
+        
+        # 値を含む検索(大文字小文字を区別しない)
+        # data = Friend.objects.filter(name__icontains=str)
+        # 値で始まるものを検索(大文字小文字を区別しない)
+        # data = Friend.objects.filter(name__istartswith=str)
+        # 値で終わるものを検索(大文字小文字を区別しない)
+        # data = Friend.objects.filter(name__iendswith=str)
     else:
         msg = 'search words...'
         form = FindForm()
