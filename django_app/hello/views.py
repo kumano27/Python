@@ -9,7 +9,7 @@ from .forms import FindForm
 from django .db.models import Q # Q関数 OR条件に必要
 
 def index(request):
-    data = Friend.objects.all()
+    data = Friend.objects.all().order_by('age')
     params = {
                 'title': 'Hello',
                 'data': data,
