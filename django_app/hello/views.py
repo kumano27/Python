@@ -63,15 +63,8 @@ def find(request):
         msg = 'search result:'
         form = FindForm(request.POST)
         str = request.POST['find']
-        # 大文字小文字を区別しない
-        data = Friend.objects.filter(name__iexact=str)
-        
-        # 値を含む検索(大文字小文字を区別しない)
-        # data = Friend.objects.filter(name__icontains=str)
-        # 値で始まるものを検索(大文字小文字を区別しない)
-        # data = Friend.objects.filter(name__istartswith=str)
-        # 値で終わるものを検索(大文字小文字を区別しない)
-        # data = Friend.objects.filter(name__iendswith=str)
+        # 入力フィールドの年齢以下のレコード取得
+        data = Friend.objects.filter(age__lte=int(str))
     else:
         msg = 'search words...'
         form = FindForm()
