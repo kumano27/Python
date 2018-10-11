@@ -24,11 +24,9 @@ class FindForm(forms.Form):
     find = forms.CharField(label='Find', required=False)
     
 class CheckForm(forms.Form):
-    # 必須項目とするか否か
-    required = forms.IntegerField(label='Required')
-    # 入力する数値の最小値を指定
-    # 以下の例だと100以上を入力する必要がある
-    min = forms.IntegerField(label='Min', min_value=100)
-    # 入力する数値の最大値を指定
-    # 以下の例だと100以下の入力のみ受け付ける
-    max = forms.IntegerField(label='Max', max_value=100)
+    # 日付を表す整数(1～31 の間の数)が入力可能
+    date = forms.DateField(label='Date', input_formats=['%d'])
+    # hh:mm形式でなければエラー
+    time = forms.TimeField(label='Time')
+    #　mm/dd/yyyy_hh:mm 形式でなければエラー
+    datetime = forms.DateTimeField(label='DateTime')
