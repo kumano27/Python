@@ -17,3 +17,6 @@ class FriendForm(forms.ModelForm):
         model = Friend
         # フィールド
         fields = ['name','mail','gender','age','birthday']
+        
+class FindForm(forms.Form):
+    find = forms.CharField(label='Find', required=False)
