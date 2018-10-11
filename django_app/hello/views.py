@@ -66,7 +66,7 @@ def find(request):
         # split -> テキストを決まった文字や記号で分割したリストを返す。引数を省略すると、半角スペースや改行でテキストを分割する
         val = str.split()
         # A 以上 B 以下
-        data = Friend.objects.filter(age__gte=val[0], age__lte=val[1])
+        data = Friend.objects.filter(age__gte=val[0]).filter(age__lte=val[1])
     else:
         msg = 'search words...'
         form = FindForm()
