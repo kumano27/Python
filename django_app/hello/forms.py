@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from django import forms
-from.models import Friend
-from django import forms
+from.models import Friend, Message
+# from django import forms
 
 class HelloForm(forms.Form):
     name = forms.CharField(label='Name')
@@ -33,3 +33,8 @@ class CheckForm(forms.Form):
         if(str.lower().startswith('no')):
             # no で始まるテキストを入力すると下記メッセージ表示
             raise forms.ValidationError('You input "NO"!')
+            
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['title','contemt','friend']

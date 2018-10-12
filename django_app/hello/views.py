@@ -3,8 +3,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.shortcuts import redirect
-from .models import Friend
-from .forms import FriendForm
+from .models import Friend, Message
+from .forms import FriendForm, MessageForm
 from .forms import FindForm
 from .forms import CheckForm
 from django.db.models import Q # Q関数 OR条件に必要
@@ -109,3 +109,20 @@ def check(request):
         else:
             params['message'] = 'no good.'
     return render(request, 'hello/check.html', params)
+
+def message(request,page=1):
+    # 送信された内容を元に Message を作成し保存
+    if(request.method == 'POST'):
+        obj = Message()
+        form = MessageForm(request.POST, instance=obj)
+        form.save()
+    # Message を Paginator で取り出す
+    data = Message.objects.all().reverse()
+    paginator = Paginator(data, 5)
+    params = {
+                'title':'Message',
+                'form':MessageForm(),
+                'data':paginator.get_page(page),
+            }
+    return render(request, 'hello/message.html', params)
+    
