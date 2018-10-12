@@ -19,6 +19,7 @@
             <th>age</th>
             <th>mail</th>
             <th>birthday</th>
+            <th>Messages</th>
         </tr>
         {% for item in data %}
         <tr>
@@ -27,10 +28,17 @@
             <td>{{item.age}}</td>
             <td>{{item.mail}}</td>
             <td>{{item.birthday}}</td>
+            <td>
+                <ul>
+                    {% for ob in item.message_set.all %}
+                        <li>{{ob.title}}</li>
+                    {% endfor %}
+                </ul>
+            </td>
         </tr>
         {% endfor %}
     </table>
-    <div class="pagination">
+    <div>
         <!-- 前のページに移動 -->
         <!-- 「has_previos」 -> 前のページがある(True)かない(False)か -->
         {% if data.has_previous %}
