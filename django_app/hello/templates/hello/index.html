@@ -11,7 +11,7 @@
 </head>
 <body>
     <h1>{{title}}</h1>
-    <p>{{message}}</p>
+    <p>{{message|safe}}</p>
     <table>
         <tr>
             <th>id</th>
@@ -30,5 +30,23 @@
         </tr>
         {% endfor %}
     </table>
+    <div class="pagination">
+        <!-- 前のページに移動 -->
+        <!-- 「has_previos」 -> 前のページがある(True)かない(False)か -->
+        {% if data.has_previous %}
+            <a href="{% url 'index' %}">&laquo;first</a>
+            <a href="{% url 'index' %}{{data.previous_page_number}}">&laquo;prev</a>
+        {% endif %}
+            <!-- 現在のページ表示 -->
+            <span class="current">
+                [{{data.number}}/{{data.paginator.num_pages}}]
+            </span>
+        <!-- 次のページに移動 -->
+        <!-- 「has_next」 -> 次のページがある(True)かない(False)か -->
+        {% if data.has_next %}
+            <a href="{% url 'index' %}{{data.next_page_number}}">next&raquo;</a>
+            <a href="{% url 'index' %}{{data.paginator.num_pages}}">last&raquo;</a>
+        {% endif %}
+    </div>  
 </body>
 </html>

@@ -9,30 +9,19 @@ from .forms import FindForm
 from .forms import CheckForm
 from django.db.models import Q # Q関数 OR条件に必要
 from django.db.models import Count,Sum,Avg,Min,Max # 集計用の関数
+from django.core.paginator import Paginator # ページネーションのインポート
 
 
-def index(request):
+def index(request, num=1):
+    # 最初に表示するレコード全体を取得(この例では全レコードを取得)
     data = Friend.objects.all()
-    # 指定項目のレコード数を返す
-    re1 = Friend.objects.aggregate(Count('age'))
-    # 指定項目の合計を計算
-    re2 = Friend.objects.aggregate(Sum('age'))
-    # 指定項目の平均を計算
-    re3 = Friend.objects.aggregate(Avg('age'))
-    # 指定項目の最小値を返す
-    re4 = Friend.objects.aggregate(Min('age'))
-    # 指定項目の最大値を返す
-    re5 = Friend.objects.aggregate(Max('age'))
+    # 第2引数を3 -> 1ページあたり3つのレコードを表示
+    page = Paginator(data, 3)
 
-    msg = 'count:' + str(re1['age__count'])\
-            + '<br>Sum:' + str(re2['age__sum'])\
-            + '<br>Average:' + str(re3['age__avg'])\
-            + '<br>Min:' + str(re4['age__min'])\
-            + '<br>Max:' + str(re5['age__max'])
     params = {
                 'title': 'Hello',
-                'message':msg,
-                'data': data,
+                'message':'',
+                'data': page.get_page(num),
             }
     return render(request, 'hello/index.html' , params)
 
