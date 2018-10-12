@@ -22,3 +22,19 @@ class Friend(models.Model):
     
     def __str__(self):
         return '<Friend:id=' + str(self.id) + ',' + self.name + '(' + str(self.age) + ')>'
+    
+class Message(models.Model):
+    # ForeignKey の項目。on_delete -> 削除する際の設定
+    friend = models.ForeignKey(Friend, on_delete=models.CASCADE)
+    # タイトルのテキストを保管するためのもの
+    title = models.CharField(max_length=100)
+    # コンテンツを保管するためのもの(メッセージ本体)
+    contemt = models.CharField(max_length=300)
+    # 投稿した日時を保管
+    pub_date = models.DateTimeField(auto_now_add=True)
+    
+    def __str__(self):
+        return '<Message:id=' + str(self.id) + ', ' + self.title + '(' + str(self.pub_date) + ')>'
+    
+    class Meta:
+        ordering = ('pub_date',)
