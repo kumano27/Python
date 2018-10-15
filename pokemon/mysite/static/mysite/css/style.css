@@ -1,3 +1,10 @@
+.class-md-11{
+    margin-left: 15px;    
+}
+
+table{
+    text-align: center;
+}
 
 /* テーブルの項目名部分 */
 .table_item_name{
@@ -8,6 +15,9 @@
 .tabale_CP,.table_HP,.tabe_SEX{
     width: 50px;
 }
-.table_WEIGHT,.table_HEIGHT,.table_MOVE1,.table_MOVE2{
+.table_WEIGHT,.table_HEIGHT,{
+    width: 85px;    
+}
+.table_MOVE1,.table_MOVE2{
     width: 100px;
 }

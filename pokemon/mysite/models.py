@@ -9,6 +9,14 @@ class Squirtle(models.Model):
     HEIGHT = models.FloatField()
     MOVE1 = models.CharField(max_length=10)
     MOVE2 = models.CharField(max_length=10)
+    TrainerName = models.ForeignKey('Trainer',db_column = 'TrainerName', on_delete=models.CASCADE)
     
     def __str__(self):
         return '<Squirtle:CP=' + str(self.CP) + '>'
+    
+class Trainer(models.Model):
+    TrainerName = models.CharField(max_length=20)
+    TrainerLv = models.IntegerField()
+    
+    def __str__(self):
+        return '<Trainer:TrainerName=' + str(self.TrainerName) + '>'

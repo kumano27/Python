@@ -15,32 +15,38 @@
         
     </head>
     <body>
-        <table>
-            <tr class="table_item_name">
-                <th class="tabale_CP">CP</th>
-                <th class="table_HP">HP</th>
-                <th class="tabe_SEX">性別</th>
-                <th class="table_WEIGHT">重さ(kg)</th>
-                <th class="table_HEIGHT">高さ(m)</th>
-                <!-- ポケモン　技の英訳については　https://bulbapedia.bulbagarden.net/wiki/Move 参照で -->
-                <th class="table_MOVE1">技1</th>
-                <th class="table_MOVE2">技2</th>
-            </tr>
-            {% for item in data %}
-            <tr class="table_item">
-                <td class="tabale_CP">{{item.CP}}</td>
-                <td class="table_HP">{{item.HP}}</td>
-                <td class="tabe_SEX">
-                    {% if item.SEX == False %}♂{% endif %}
-                    {% if item.SEX == True %}♀{% endif %}
-                </td>
-                <td class="table_WEIGHT">{{item.WEIGHT}}</td>
-                <td class="table_HEIGHT">{{item.HEIGHT}}</td>
-                <td class="table_MOVE1">{{item.MOVE1}}</td>
-                <td class="table_MOVE2">{{item.MOVE2}}</td>
-            </tr>
-            {% endfor %}
-        </table>
-        
+        <div class="row">
+            <div "class-md-11">
+                <img src="{% static 'mysite/image/test.png' %}" width="32" height="32" />
+            </div>
+            <div "class-md-11">
+                <table border="1">
+                    <tr class="table_item_name">
+                        <th class="tabale_CP">CP</th>
+                        <th class="table_HP">HP</th>
+                        <th class="tabe_SEX">性別</th>
+                        <th class="table_WEIGHT">重さ(kg)</th>
+                        <th class="table_HEIGHT">高さ(m)</th>
+                        <!-- ポケモン　技の英訳については　https://bulbapedia.bulbagarden.net/wiki/Move 参照で -->
+                        <th class="table_MOVE1">技1</th>
+                        <th class="table_MOVE2">技2</th>
+                    </tr>
+                    {% for item in data %}
+                    <tr class="table_item">
+                        <td class="tabale_CP">{{item.CP}}</td>
+                        <td class="table_HP">{{item.HP}}</td>
+                        <td class="tabe_SEX">
+                            {% if item.SEX == False %}♂{% endif %}
+                            {% if item.SEX == True %}♀{% endif %}
+                        </td>
+                        <td class="table_WEIGHT">{{item.WEIGHT}}</td>
+                        <td class="table_HEIGHT">{{item.HEIGHT}}</td>
+                        <td class="table_MOVE1">{{item.MOVE1}}</td>
+                        <td class="table_MOVE2">{{item.MOVE2}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
     </body>
 </html>
