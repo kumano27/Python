@@ -1,27 +1,42 @@
+{% load static %}
 <!doctype html>
 <html lang="ja">
     <head>
         <meta charset="utf-8">
         <title>テスト</title>
+        <!--CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <!--JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        
+        <!-- 個別css -->
+        <link rel="stylesheet" type="text/css" href="{% static 'mysite/css/style.css' %}" />
+        
     </head>
     <body>
         <table>
-            <tr style="background-color: #eee;">
-                <th>CP</th>
-                <th>HP</th>
-                <th>性別</th>
-                <th>重さ</th>
-                <th>高さ</th>
-                <th>技1</th>
-                <th>技2</th>
+            <tr class="table_item_name">
+                <th class="tabale_CP">CP</th>
+                <th class="table_HP">HP</th>
+                <th class="tabe_SEX">性別</th>
+                <th class="table_WEIGHT">重さ</th>
+                <th class="table_HEIGHT">高さ</th>
+                <!-- ポケモン　技の英訳については　https://bulbapedia.bulbagarden.net/wiki/Move 参照で -->
+                <th class="table_MOVE1">技1</th>
+                <th class="table_MOVE2">技2</th>
             </tr>
-            <td>593</td>
-            <td>62</td>
-            <td>♂</td>
-            <td>12.08 kg</td>
-            <td>0.59 m</td>
-            <td>たいあたり</td>
-            <td>アクアテール</td>
+            <tr class="table_item">
+                <td class="tabale_CP">593</td>
+                <td class="table_HP">62</td>
+                <td class="tabe_SEX">♂</td>
+                <!-- テーブルには kg m といった単位は付いていない -->
+                <td class="table_WEIGHT">12.08 kg</td>
+                <td class="table_HEIGHT">0.59 m</td>
+                <td class="table_MOVE1">たいあたり</td>
+                <td class="table_MOVE2">アクアテール</td>
+            </tr>
         </table>
+        
     </body>
 </html>

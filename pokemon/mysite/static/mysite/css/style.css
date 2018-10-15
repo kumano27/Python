@@ -1,0 +1,12 @@
+/* テーブルの項目名部分 */
+.table_item_name{
+    background-color: #eee;
+}
+
+/* テーブル各セルの大きさ */
+.tabale_CP,.table_HP,.tabe_SEX{
+    width: 50px;
+}
+.table_WEIGHT,.table_HEIGHT,.table_MOVE1,.table_MOVE2{
+    width: 100px;
+}
