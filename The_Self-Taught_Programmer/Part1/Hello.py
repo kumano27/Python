@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
-
+"""
+    Hello,World! と表示させてみよう。
+"""
 print("Hello,World!")
 
 """
